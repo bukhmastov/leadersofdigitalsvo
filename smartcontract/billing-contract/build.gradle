@@ -1,0 +1,32 @@
+plugins {
+    id 'com.github.johnrengelman.shadow' version '5.1.0'
+    id 'java'
+}
+
+group 'ru.leadersofdigitalsvo'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+    maven {
+        url 'https://jitpack.io'
+    }
+}
+
+dependencies {
+    implementation group: 'org.hyperledger.fabric-chaincode-java', name: 'fabric-chaincode-shim', version: '2.+'
+    implementation group: 'org.json', name: 'json', version: '20180813'
+}
+
+shadowJar {
+    baseName = 'chaincode'
+    version = null
+    classifier = null
+
+    manifest {
+        attributes 'Main-Class': 'org.hyperledger.fabric.contract.ContractRouter'
+    }
+}

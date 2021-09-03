@@ -1,0 +1,6 @@
+rootProject.name = 'leadersofdigitalsvo'
+include(
+    'smartcontract:account-contract',
+    'smartcontract:agreement-contract',
+    'smartcontract:billing-contract'
+)
