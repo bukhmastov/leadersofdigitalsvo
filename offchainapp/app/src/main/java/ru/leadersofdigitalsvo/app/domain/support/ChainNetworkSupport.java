@@ -5,7 +5,6 @@ import org.hyperledger.fabric.gateway.Gateway;
 import org.hyperledger.fabric.gateway.Network;
 import ru.leadersofdigitalsvo.app.dao.chain.support.NetworkSupport;
 import ru.leadersofdigitalsvo.app.dao.chain.support.UserIdentitySupport;
-import ru.leadersofdigitalsvo.app.model.ChainIdentity;
 import ru.leadersofdigitalsvo.app.model.UserChainIdentity;
 
 import java.io.IOException;
@@ -14,7 +13,7 @@ import java.util.concurrent.TimeoutException;
 
 public class ChainNetworkSupport {
 
-    public static <T> T useNetwork(ChainIdentity chainIdentity, String userName, Runner<T> runner) throws IOException {
+    public static <T> T useNetwork(String networkName, String userName, Runner<T> runner) throws IOException {
         UserChainIdentity userChainIdentity = new UserIdentitySupport().makeUserIdentity(userName);
         Path networkConfig = new NetworkSupport().makeNetworkConfig();
         try (Gateway gateway = Gateway.createBuilder()
@@ -22,7 +21,7 @@ public class ChainNetworkSupport {
                 .networkConfig(networkConfig)
                 .connect()
         ) {
-            Network network = gateway.getNetwork(chainIdentity.getNetworkName());
+            Network network = gateway.getNetwork(networkName);
             return runner.run(network);
         } catch (ContractException | InterruptedException | TimeoutException e) {
             throw new IOException(e);

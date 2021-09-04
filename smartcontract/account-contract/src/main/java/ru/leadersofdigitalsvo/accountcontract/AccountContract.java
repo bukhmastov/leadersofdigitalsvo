@@ -14,7 +14,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.logging.Logger;
 
 @Default
-@Contract(name = ChainRegister.account)
+@Contract(name = ChainRegister.accountContract)
 public class AccountContract implements ContractInterface {
 
     @Override

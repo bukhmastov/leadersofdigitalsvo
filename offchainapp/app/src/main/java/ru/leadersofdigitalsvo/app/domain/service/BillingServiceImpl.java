@@ -4,7 +4,6 @@ import org.springframework.stereotype.Service;
 import ru.leadersofdigitalsvo.app.dao.chain.agreement.GetAgreementUseCase;
 import ru.leadersofdigitalsvo.app.dao.chain.billing.IssueBillUseCase;
 import ru.leadersofdigitalsvo.app.dao.chain.agreement.SubscribeForAgreementRegistration;
-import ru.leadersofdigitalsvo.app.model.ChainIdentity;
 import ru.leadersofdigitalsvo.common.model.AgreementState;
 
 import javax.annotation.PostConstruct;
@@ -19,13 +18,13 @@ public class BillingServiceImpl implements BillingService {
     }
 
     private void subscribeForAgreementRegistration() throws IOException {
-        ChainIdentity chainIdentity = makeChainIdentity();
-        new SubscribeForAgreementRegistration().subscribe(chainIdentity, userName, agreementId -> {
+        String networkName = "network";
+        new SubscribeForAgreementRegistration().subscribe(networkName, userName, agreementId -> {
             try {
-                AgreementState agreementState = new GetAgreementUseCase().run(chainIdentity, userName, agreementId);
+                AgreementState agreementState = new GetAgreementUseCase().run(networkName, userName, agreementId);
                 String accountId = agreementState.getAccountId();
                 int amount = agreementState.getPeriodAmount();
-                new IssueBillUseCase().run(chainIdentity, userName, accountId, agreementId, amount);
+                new IssueBillUseCase().run(networkName, userName, accountId, agreementId, amount);
             } catch (IOException e) {
                 // Nothing for now
                 e.printStackTrace();
@@ -33,8 +32,5 @@ public class BillingServiceImpl implements BillingService {
         });
     }
 
-    private String userName = "service@leadersofdigitalsvo.ru";
-    private ChainIdentity makeChainIdentity() {
-        return new ChainIdentity("network", "chaincode");
-    }
+    private String userName = "org1@leadersofdigitalsvo.ru";
 }

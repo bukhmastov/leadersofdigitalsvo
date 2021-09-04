@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 import ru.leadersofdigitalsvo.app.dao.chain.account.AccountUpdateValueUseCase;
 import ru.leadersofdigitalsvo.app.dao.chain.billing.*;
 import ru.leadersofdigitalsvo.app.dao.endpoint.BankProcessingEndpoint;
-import ru.leadersofdigitalsvo.app.model.ChainIdentity;
 import ru.leadersofdigitalsvo.common.model.BillState;
 
 import javax.annotation.PostConstruct;
@@ -22,23 +21,23 @@ public class BillingProcessingServiceImpl implements BillingProcessingService {
 
     @Override
     public void accomplish(String billId) throws IOException {
-        String userName = "account1@leadersofdigitalsvo.ru";
-        ChainIdentity chainIdentity = makeChainIdentity();
-        new AccomplishBillUseCase().run(chainIdentity, userName, billId);
+        String userName = "org2@leadersofdigitalsvo.ru";
+        String networkName = "network";
+        new AccomplishBillUseCase().run(networkName, userName, billId);
     }
 
     @Override
     public void fail(String billId) throws IOException {
-        String userName = "account1@leadersofdigitalsvo.ru";
-        ChainIdentity chainIdentity = makeChainIdentity();
-        new FailBillUseCase().run(chainIdentity, userName, billId);
+        String userName = "org2@leadersofdigitalsvo.ru";
+        String networkName = "network";
+        new FailBillUseCase().run(networkName, userName, billId);
     }
 
     private void subscribeForBillingIssue() throws IOException {
-        ChainIdentity chainIdentity = makeChainIdentity();
-        new SubscribeForBillIssue().subscribe(chainIdentity, userName, billId -> {
+        String networkName = "network";
+        new SubscribeForBillIssue().subscribe(networkName, userName, billId -> {
             try {
-                BillState billState = new GetBillUseCase().run(chainIdentity, userName, billId);
+                BillState billState = new GetBillUseCase().run(networkName, userName, billId);
                 String accountId = billState.getAccountId();
                 int amount = billState.getAmount();
                 bankProcessingEndpoint.withdraw(accountId, billId, amount);
@@ -50,12 +49,12 @@ public class BillingProcessingServiceImpl implements BillingProcessingService {
     }
 
     private void subscribeForBillingAccomplish() throws IOException {
-        ChainIdentity chainIdentity = makeChainIdentity();
-        new SubscribeForBillAccomplish().subscribe(chainIdentity, userName, billId -> {
+        String networkName = "network";
+        new SubscribeForBillAccomplish().subscribe(networkName, userName, billId -> {
             try {
-                BillState billState = new GetBillUseCase().run(chainIdentity, userName, billId);
+                BillState billState = new GetBillUseCase().run(networkName, userName, billId);
                 int amount = billState.getAmount();
-                new AccountUpdateValueUseCase().run(chainIdentity, userName, billId, amount);
+                new AccountUpdateValueUseCase().run(networkName, userName, billId, amount);
             } catch (IOException e) {
                 // Nothing for now
                 e.printStackTrace();
@@ -66,8 +65,5 @@ public class BillingProcessingServiceImpl implements BillingProcessingService {
     @Autowired
     BankProcessingEndpoint bankProcessingEndpoint;
 
-    private String userName = "service@leadersofdigitalsvo.ru";
-    private ChainIdentity makeChainIdentity() {
-        return new ChainIdentity("network", "chaincode");
-    }
+    private String userName = "org1@leadersofdigitalsvo.ru";
 }

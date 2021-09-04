@@ -1,7 +1,6 @@
 package ru.leadersofdigitalsvo.app.dao.chain.billing;
 
 import org.hyperledger.fabric.gateway.Contract;
-import ru.leadersofdigitalsvo.app.model.ChainIdentity;
 import ru.leadersofdigitalsvo.common.ChainRegister;
 
 import java.io.IOException;
@@ -11,9 +10,9 @@ import static ru.leadersofdigitalsvo.app.domain.support.ChainNetworkSupport.useN
 
 public class SubscribeForBillAccomplish {
 
-    public void subscribe(ChainIdentity chainIdentity, String userName, Consumer<String> listener) throws IOException {
-        useNetwork(chainIdentity, userName, network -> {
-            Contract contract = network.getContract(chainIdentity.getChaincodeID(), ChainRegister.billing);
+    public void subscribe(String networkName, String userName, Consumer<String> listener) throws IOException {
+        useNetwork(networkName, userName, network -> {
+            Contract contract = network.getContract(ChainRegister.billingChaincode, ChainRegister.billingContract);
             contract.addContractListener(event -> {
                 byte[] payload = event.getPayload().orElse(null);
                 if (payload == null) {

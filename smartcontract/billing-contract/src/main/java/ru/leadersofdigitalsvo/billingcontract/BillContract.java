@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 @Default
-@Contract(name = ChainRegister.billing)
+@Contract(name = ChainRegister.billingContract)
 public class BillContract implements ContractInterface {
 
     @Override

@@ -3,7 +3,6 @@ package ru.leadersofdigitalsvo.app.dao.chain.account;
 import org.hyperledger.fabric.gateway.Contract;
 import org.hyperledger.fabric.gateway.ContractException;
 import org.hyperledger.fabric.gateway.Network;
-import ru.leadersofdigitalsvo.app.model.ChainIdentity;
 import ru.leadersofdigitalsvo.app.model.entity.Account;
 import ru.leadersofdigitalsvo.app.model.entity.Agreement;
 import ru.leadersofdigitalsvo.common.ChainRegister;
@@ -17,18 +16,18 @@ import static ru.leadersofdigitalsvo.app.domain.support.ChainNetworkSupport.useN
 
 public class RegisterAccountUseCase {
 
-    public void run(ChainIdentity chainIdentity, String userName, Account account, Agreement agreement) throws IOException {
-        useNetwork(chainIdentity, userName, network -> {
-            AccountState accountState = registerAccount(chainIdentity, network, account);
-            AgreementState agreementState = registerAgreement(chainIdentity, network, agreement);
+    public void run(String networkName, String userName, Account account, Agreement agreement) throws IOException {
+        useNetwork(networkName, userName, network -> {
+            AccountState accountState = registerAccount(network, account);
+            AgreementState agreementState = registerAgreement(network, agreement);
             accountState.setAgreementId(agreementState.getAgreementId());
-            updateAccountAgreementRef(chainIdentity, network, accountState);
+            updateAccountAgreementRef(network, accountState);
             return accountState;
         });
     }
 
-    private AccountState registerAccount(ChainIdentity chainIdentity, Network network, Account account) throws ContractException, InterruptedException, TimeoutException {
-        Contract contract = network.getContract(chainIdentity.getChaincodeID(), ChainRegister.account);
+    private AccountState registerAccount(Network network, Account account) throws ContractException, InterruptedException, TimeoutException {
+        Contract contract = network.getContract(ChainRegister.accountChaincode, ChainRegister.accountContract);
         byte[] response = contract.createTransaction("register")
                 .submit(
                         account.getAccountId(),
@@ -38,8 +37,8 @@ public class RegisterAccountUseCase {
         return AccountState.deserialize(response);
     }
 
-    private AgreementState registerAgreement(ChainIdentity chainIdentity, Network network, Agreement agreement) throws ContractException, InterruptedException, TimeoutException {
-        Contract contract = network.getContract(chainIdentity.getChaincodeID(), ChainRegister.agreement);
+    private AgreementState registerAgreement(Network network, Agreement agreement) throws ContractException, InterruptedException, TimeoutException {
+        Contract contract = network.getContract(ChainRegister.agreementChaincode, ChainRegister.agreementContract);
         byte[] response = contract.createTransaction("register")
                 .submit(
                         agreement.getAgreementId(),
@@ -48,8 +47,8 @@ public class RegisterAccountUseCase {
         return AgreementState.deserialize(response);
     }
 
-    private void updateAccountAgreementRef(ChainIdentity chainIdentity, Network network, AccountState account) throws ContractException, InterruptedException, TimeoutException {
-        Contract contract = network.getContract(chainIdentity.getChaincodeID(), ChainRegister.account);
+    private void updateAccountAgreementRef(Network network, AccountState account) throws ContractException, InterruptedException, TimeoutException {
+        Contract contract = network.getContract(ChainRegister.accountChaincode, ChainRegister.accountContract);
         contract.createTransaction("updateAgreementRef")
                 .submit(
                         account.getAccountId(),

@@ -7,18 +7,20 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import ru.leadersofdigitalsvo.app.domain.service.BillingProcessingService;
 
+import java.io.IOException;
+
 @Controller
 @RequestMapping("/processing/bank")
 public class BankProcessingController {
 
     @PostMapping(name = "/accomplish/{id}", produces = "application/json")
-    public String accomplish(@PathVariable("id") String billId) {
+    public String accomplish(@PathVariable("id") String billId) throws IOException {
         billingProcessingService.accomplish(billId);
         return "ok";
     }
 
     @PostMapping(name = "/fail/{id}", produces = "application/json")
-    public String fail(@PathVariable("id") String billId) {
+    public String fail(@PathVariable("id") String billId) throws IOException {
         billingProcessingService.fail(billId);
         return "ok";
     }
