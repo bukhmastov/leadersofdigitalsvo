@@ -67,6 +67,12 @@ public class BillContract implements ContractInterface {
     }
 
     @Transaction
+    public BillState get(BillContext ctx, String billId) {
+        String key = State.makeKey(new String[]{billId});
+        return ctx.billList.get(key);
+    }
+
+    @Transaction
     public List<BillState> getAllForAccount(BillContext ctx, String accountId) {
         return StreamSupport.stream(ctx.billList.find("").spliterator(), false)
                 .filter(billState -> accountId.equals(billState.getAccountId()))

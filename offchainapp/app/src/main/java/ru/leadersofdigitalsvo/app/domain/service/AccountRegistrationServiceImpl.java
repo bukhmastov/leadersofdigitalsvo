@@ -1,8 +1,8 @@
 package ru.leadersofdigitalsvo.app.domain.service;
 
 import org.springframework.stereotype.Service;
-import ru.leadersofdigitalsvo.app.dao.chain.AccountInfoUseCase;
-import ru.leadersofdigitalsvo.app.dao.chain.RegisterAccountUseCase;
+import ru.leadersofdigitalsvo.app.dao.chain.account.AccountInfoUseCase;
+import ru.leadersofdigitalsvo.app.dao.chain.account.RegisterAccountUseCase;
 import ru.leadersofdigitalsvo.app.model.ChainIdentity;
 import ru.leadersofdigitalsvo.app.model.entity.Account;
 import ru.leadersofdigitalsvo.app.model.entity.AccountInfo;

@@ -10,7 +10,7 @@ import ru.leadersofdigitalsvo.app.model.entity.AccountInfo;
 import java.io.IOException;
 
 @Controller
-@RequestMapping("account")
+@RequestMapping("/account")
 public class AccountController {
 
     @PostMapping(name = "/register", produces = "application/json")

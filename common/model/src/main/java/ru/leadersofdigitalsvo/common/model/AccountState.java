@@ -3,6 +3,7 @@ package ru.leadersofdigitalsvo.common.model;
 import org.hyperledger.fabric.contract.annotation.DataType;
 import org.hyperledger.fabric.contract.annotation.Property;
 import org.json.JSONObject;
+import org.json.JSONPropertyIgnore;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 
@@ -86,6 +87,16 @@ public class AccountState extends State {
     public AccountState setAgreementId(String agreementId) {
         this.agreementId = agreementId;
         return this;
+    }
+
+    @JSONPropertyIgnore()
+    public boolean isActive() {
+        return this.state.equals(STATE_ACTIVE);
+    }
+
+    @JSONPropertyIgnore()
+    public boolean isClosed() {
+        return this.state.equals(STATE_CLOSED);
     }
 
     public static AccountState createInstance(String accountId, String mspId, String state, int value, int lastValueChangeTime) {

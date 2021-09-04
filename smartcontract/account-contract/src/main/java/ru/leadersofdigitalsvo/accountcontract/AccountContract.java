@@ -48,7 +48,24 @@ public class AccountContract implements ContractInterface {
     public AccountState updateAgreementRef(AccountContext ctx, String accountId, String agreementId) {
         String key = State.makeKey(new String[]{accountId});
         AccountState accountState = ctx.accountList.get(key);
+        if (accountState.isClosed()) {
+            throw new RuntimeException("Account " + accountState.getAccountId() + " is closed");
+        }
         accountState.setAgreementId(agreementId);
+        ctx.accountList.update(accountState);
+        ctx.getStub().setEvent("account-update", accountId.getBytes(StandardCharsets.UTF_8));
+        return accountState;
+    }
+
+    @Transaction
+    public AccountState updateValue(AccountContext ctx, String accountId, int valueDelta) {
+        String key = State.makeKey(new String[]{accountId});
+        AccountState accountState = ctx.accountList.get(key);
+        if (accountState.isClosed()) {
+            throw new RuntimeException("Account " + accountState.getAccountId() + " is closed");
+        }
+        int valueNext = accountState.getValue() + valueDelta;
+        accountState.setValue(valueNext);
         ctx.accountList.update(accountState);
         ctx.getStub().setEvent("account-update", accountId.getBytes(StandardCharsets.UTF_8));
         return accountState;
