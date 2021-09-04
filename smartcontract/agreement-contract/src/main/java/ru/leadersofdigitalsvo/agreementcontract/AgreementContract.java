@@ -24,8 +24,8 @@ public class AgreementContract implements ContractInterface {
     }
 
     @Transaction
-    public Agreement registerAgreement(AgreementContext ctx, String agreementId) {
-        Agreement agreement = Agreement.createInstance(agreementId);
+    public Agreement registerAgreement(AgreementContext ctx, String agreementId, String accountId, int period, int periodAmount, int periodPercent, int safeAmount) {
+        Agreement agreement = Agreement.createInstance(agreementId, accountId, period, periodAmount, periodPercent, safeAmount);
         ctx.agreementList.add(agreement);
         return agreement;
     }

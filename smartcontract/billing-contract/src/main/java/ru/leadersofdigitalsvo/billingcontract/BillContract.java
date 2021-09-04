@@ -6,7 +6,9 @@ import org.hyperledger.fabric.contract.annotation.Contract;
 import org.hyperledger.fabric.contract.annotation.Default;
 import org.hyperledger.fabric.contract.annotation.Transaction;
 import org.hyperledger.fabric.shim.ChaincodeStub;
+import ru.leadersofdigitalsvo.billingcontract.ledgerapi.State;
 
+import java.nio.charset.StandardCharsets;
 import java.util.logging.Logger;
 
 @Default
@@ -24,9 +26,37 @@ public class BillContract implements ContractInterface {
     }
 
     @Transaction
-    public Bill registerAgreement(BillContext ctx, String billId, String accountId, String agreementId) {
-        Bill bill = Bill.createInstance(billId, accountId, agreementId);
+    public Bill issue(BillContext ctx, String billId, String accountId, String agreementId, int amount) {
+        String state = Bill.STATE_ISSUED;
+        Bill bill = Bill.createInstance(billId, accountId, agreementId, amount, state);
         ctx.billList.add(bill);
+        ctx.getStub().setEvent("bill-issue", billId.getBytes(StandardCharsets.UTF_8));
+        return bill;
+    }
+
+    @Transaction
+    public Bill accomplish(BillContext ctx, String billId) {
+        String key = State.makeKey(new String[]{billId});
+        Bill bill = ctx.billList.get(key);
+        if (!bill.isIssued()) {
+            throw new RuntimeException("Bill " + bill.getBillId() + " is not issued. Current state is " + bill.getState());
+        }
+        bill.setState(Bill.STATE_ACCOMPLISHED);
+        ctx.billList.update(bill);
+        ctx.getStub().setEvent("bill-accomplish", billId.getBytes(StandardCharsets.UTF_8));
+        return bill;
+    }
+
+    @Transaction
+    public Bill fail(BillContext ctx, String billId) {
+        String key = State.makeKey(new String[]{billId});
+        Bill bill = ctx.billList.get(key);
+        if (!bill.isIssued()) {
+            throw new RuntimeException("Bill " + bill.getBillId() + " is not issued. Current state is " + bill.getState());
+        }
+        bill.setState(Bill.STATE_FAILED);
+        ctx.billList.update(bill);
+        ctx.getStub().setEvent("bill-fail", billId.getBytes(StandardCharsets.UTF_8));
         return bill;
     }
 

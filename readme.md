@@ -12,8 +12,7 @@ Languages:
 
 Locations: 
 - `/smartcontract` - place for all contract modules, built with https://github.com/hyperledger/fabric-chaincode-java/
-- `/offchainapp` - place for all offchain modules, built with https://github.com/hyperledger/fabric-gateway-java/ 
-- `/api` - place for exposed http api, built with Spring boot (or framework (in the future)) https://spring.io/projects/spring-boot
+- `/offchainapp` - place for all offchain modules and exposed http api, built with https://github.com/hyperledger/fabric-gateway-java/ and Spring boot (or framework (in the future)) https://spring.io/projects/spring-boot
 - `/front` - place for web application, built with ReactJS https://ru.reactjs.org/
 
 ### Roadmap
