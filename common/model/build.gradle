@@ -1,0 +1,21 @@
+plugins {
+    id 'java'
+}
+
+group 'ru.leadersofdigitalsvo'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+    maven {
+        url 'https://jitpack.io'
+    }
+}
+
+dependencies {
+    implementation group: 'org.json', name: 'json', version: '20180813'
+    implementation group: 'org.hyperledger.fabric-chaincode-java', name: 'fabric-chaincode-shim', version: '2.+'
+}

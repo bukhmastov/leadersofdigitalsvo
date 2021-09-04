@@ -1,10 +1,11 @@
 package ru.leadersofdigitalsvo.app.domain.service;
 
 import org.springframework.stereotype.Service;
-import ru.leadersofdigitalsvo.app.dao.chain.RegisterAccount;
-import ru.leadersofdigitalsvo.app.dao.chain.RegisterAgreement;
+import ru.leadersofdigitalsvo.app.dao.chain.AccountInfoUseCase;
+import ru.leadersofdigitalsvo.app.dao.chain.RegisterAccountUseCase;
 import ru.leadersofdigitalsvo.app.model.ChainIdentity;
 import ru.leadersofdigitalsvo.app.model.entity.Account;
+import ru.leadersofdigitalsvo.app.model.entity.AccountInfo;
 import ru.leadersofdigitalsvo.app.model.entity.Agreement;
 
 import java.io.IOException;
@@ -21,9 +22,16 @@ public class AccountRegistrationServiceImpl implements AccountRegistrationServic
         account.setAccountId(makeEntityId());
         agreement.setAccountId(account.getAccountId());
         agreement.setAgreementId(makeEntityId());
-        account = new RegisterAccount().run(chainIdentity, userName, account);
-        agreement = new RegisterAgreement().run(chainIdentity, userName, agreement);
+        new RegisterAccountUseCase().run(chainIdentity, userName, account, agreement);
         return account.getAccountId();
+    }
+
+    @Override
+    public AccountInfo info(String accountId) throws IOException {
+        String userName = "account1@leadersofdigitalsvo.ru";
+        ChainIdentity chainIdentity = makeChainIdentity();
+        AccountInfo accountInfo = new AccountInfoUseCase().run(chainIdentity, userName, accountId);
+        return accountInfo;
     }
 
     private ChainIdentity makeChainIdentity() {

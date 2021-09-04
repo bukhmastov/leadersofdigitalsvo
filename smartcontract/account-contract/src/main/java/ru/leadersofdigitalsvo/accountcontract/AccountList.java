@@ -1,27 +1,28 @@
 package ru.leadersofdigitalsvo.accountcontract;
 
 import org.hyperledger.fabric.contract.Context;
-import ru.leadersofdigitalsvo.accountcontract.ledgerapi.StateList;
+import ru.leadersofdigitalsvo.common.chain.ledgerapi.StateList;
+import ru.leadersofdigitalsvo.common.model.AccountState;
 
 public class AccountList {
 
     private final StateList stateList;
 
     public AccountList(Context ctx) {
-        this.stateList = StateList.getStateList(ctx, AccountList.class.getSimpleName(), Account::deserialize);
+        this.stateList = StateList.getStateList(ctx, AccountList.class.getSimpleName(), AccountState::deserialize);
     }
 
-    public AccountList add(Account account) {
-        stateList.add(account);
+    public AccountList add(AccountState accountState) {
+        stateList.add(accountState);
         return this;
     }
 
-    public Account get(String key) {
-        return (Account) this.stateList.get(key);
+    public AccountState get(String key) {
+        return (AccountState) this.stateList.get(key);
     }
 
-    public AccountList update(Account account) {
-        this.stateList.update(account);
+    public AccountList update(AccountState accountState) {
+        this.stateList.update(accountState);
         return this;
     }
 }

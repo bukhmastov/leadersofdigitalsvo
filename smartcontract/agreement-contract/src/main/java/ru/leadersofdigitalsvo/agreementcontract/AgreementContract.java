@@ -6,11 +6,15 @@ import org.hyperledger.fabric.contract.annotation.Contract;
 import org.hyperledger.fabric.contract.annotation.Default;
 import org.hyperledger.fabric.contract.annotation.Transaction;
 import org.hyperledger.fabric.shim.ChaincodeStub;
+import ru.leadersofdigitalsvo.common.ChainRegister;
+import ru.leadersofdigitalsvo.common.model.AgreementState;
+import ru.leadersofdigitalsvo.common.model.State;
 
+import java.nio.charset.StandardCharsets;
 import java.util.logging.Logger;
 
 @Default
-@Contract(name = "ru.leadersofdigitalsvo.agreementcontract")
+@Contract(name = ChainRegister.agreement)
 public class AgreementContract implements ContractInterface {
 
     @Override
@@ -24,10 +28,18 @@ public class AgreementContract implements ContractInterface {
     }
 
     @Transaction
-    public Agreement registerAgreement(AgreementContext ctx, String agreementId, String accountId, int period, int periodAmount, int periodPercent, int safeAmount) {
-        Agreement agreement = Agreement.createInstance(agreementId, accountId, period, periodAmount, periodPercent, safeAmount);
-        ctx.agreementList.add(agreement);
-        return agreement;
+    public AgreementState register(AgreementContext ctx, String agreementId, String accountId, int period, int periodAmount, int periodPercent, int safeAmount) {
+        AgreementState agreementState = AgreementState.createInstance(agreementId, accountId, period, periodAmount, periodPercent, safeAmount);
+        ctx.agreementList.add(agreementState);
+        ctx.getStub().setEvent("agreement-register", agreementId.getBytes(StandardCharsets.UTF_8));
+        return agreementState;
+    }
+
+    @Transaction
+    public AgreementState get(AgreementContext ctx, String agreementId) {
+        String key = State.makeKey(new String[]{agreementId});
+        AgreementState agreementState = ctx.agreementList.get(key);
+        return agreementState;
     }
 
 

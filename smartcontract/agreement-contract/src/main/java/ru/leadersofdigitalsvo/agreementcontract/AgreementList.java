@@ -1,27 +1,28 @@
 package ru.leadersofdigitalsvo.agreementcontract;
 
 import org.hyperledger.fabric.contract.Context;
-import ru.leadersofdigitalsvo.agreementcontract.ledgerapi.StateList;
+import ru.leadersofdigitalsvo.common.chain.ledgerapi.StateList;
+import ru.leadersofdigitalsvo.common.model.AgreementState;
 
 public class AgreementList {
 
     private final StateList stateList;
 
     public AgreementList(Context ctx) {
-        this.stateList = StateList.getStateList(ctx, AgreementList.class.getSimpleName(), Agreement::deserialize);
+        this.stateList = StateList.getStateList(ctx, AgreementList.class.getSimpleName(), AgreementState::deserialize);
     }
 
-    public AgreementList add(Agreement agreement) {
-        stateList.add(agreement);
+    public AgreementList add(AgreementState agreementState) {
+        stateList.add(agreementState);
         return this;
     }
 
-    public Agreement get(String key) {
-        return (Agreement) this.stateList.get(key);
+    public AgreementState get(String key) {
+        return (AgreementState) this.stateList.get(key);
     }
 
-    public AgreementList update(Agreement agreement) {
-        this.stateList.update(agreement);
+    public AgreementList update(AgreementState agreementState) {
+        this.stateList.update(agreementState);
         return this;
     }
 }

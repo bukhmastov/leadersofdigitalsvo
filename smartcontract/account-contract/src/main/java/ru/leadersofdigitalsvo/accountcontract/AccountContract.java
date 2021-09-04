@@ -6,11 +6,15 @@ import org.hyperledger.fabric.contract.annotation.Contract;
 import org.hyperledger.fabric.contract.annotation.Default;
 import org.hyperledger.fabric.contract.annotation.Transaction;
 import org.hyperledger.fabric.shim.ChaincodeStub;
+import ru.leadersofdigitalsvo.common.ChainRegister;
+import ru.leadersofdigitalsvo.common.model.AccountState;
+import ru.leadersofdigitalsvo.common.model.State;
 
+import java.nio.charset.StandardCharsets;
 import java.util.logging.Logger;
 
 @Default
-@Contract(name = "ru.leadersofdigitalsvo.accountcontract")
+@Contract(name = ChainRegister.account)
 public class AccountContract implements ContractInterface {
 
     @Override
@@ -24,14 +28,31 @@ public class AccountContract implements ContractInterface {
     }
 
     @Transaction
-    public Account registerAccount(AccountContext ctx, String accountId, int value, int lastValueChangeTime) {
+    public AccountState register(AccountContext ctx, String accountId, int value, int lastValueChangeTime) {
         String mspId = ctx.getClientIdentity().getMSPID();
-        String state = Account.STATE_ACTIVE;
-        Account account = Account.createInstance(accountId, mspId, state, value, lastValueChangeTime);
-        ctx.accountList.add(account);
-        return account;
+        String state = AccountState.STATE_ACTIVE;
+        AccountState accountState = AccountState.createInstance(accountId, mspId, state, value, lastValueChangeTime);
+        ctx.accountList.add(accountState);
+        ctx.getStub().setEvent("account-register", accountId.getBytes(StandardCharsets.UTF_8));
+        return accountState;
     }
 
+    @Transaction
+    public AccountState get(AccountContext ctx, String accountId) {
+        String key = State.makeKey(new String[]{accountId});
+        AccountState accountState = ctx.accountList.get(key);
+        return accountState;
+    }
+
+    @Transaction
+    public AccountState updateAgreementRef(AccountContext ctx, String accountId, String agreementId) {
+        String key = State.makeKey(new String[]{accountId});
+        AccountState accountState = ctx.accountList.get(key);
+        accountState.setAgreementId(agreementId);
+        ctx.accountList.update(accountState);
+        ctx.getStub().setEvent("account-update", accountId.getBytes(StandardCharsets.UTF_8));
+        return accountState;
+    }
 
     private final static Logger LOG = Logger.getLogger(AccountContract.class.getName());
 }
