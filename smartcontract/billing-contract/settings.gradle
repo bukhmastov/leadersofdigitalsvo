@@ -1,1 +1,7 @@
 rootProject.name = 'account-contract'
+
+include ":common:model"
+project(":common:model").projectDir = file("../../common/model")
+
+include ":common:chain"
+project(":common:chain").projectDir = file("../../common/chain")
