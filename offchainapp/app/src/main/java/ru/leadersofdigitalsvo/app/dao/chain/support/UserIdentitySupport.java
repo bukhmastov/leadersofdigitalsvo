@@ -12,8 +12,12 @@ public class UserIdentitySupport {
 
     private static final Path walletPath = Paths.get(".", "wallet");
 
-    public UserChainIdentity makeUserIdentity(String userName) throws IOException {
-        Wallet wallet = Wallets.newFileSystemWallet(walletPath);
+    public static Wallet makeWallet() throws IOException {
+        return Wallets.newFileSystemWallet(walletPath);
+    }
+
+    public static UserChainIdentity makeUserIdentity(String userName) throws IOException {
+        Wallet wallet = makeWallet();
         return new UserChainIdentity(wallet, userName);
     }
 }

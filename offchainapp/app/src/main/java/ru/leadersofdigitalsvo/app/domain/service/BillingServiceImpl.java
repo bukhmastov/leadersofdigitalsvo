@@ -32,5 +32,5 @@ public class BillingServiceImpl implements BillingService {
         });
     }
 
-    private String userName = "org1@leadersofdigitalsvo.ru";
+    private String userName = "org1admin@org1.leadersofdigitalsvo.ru";
 }

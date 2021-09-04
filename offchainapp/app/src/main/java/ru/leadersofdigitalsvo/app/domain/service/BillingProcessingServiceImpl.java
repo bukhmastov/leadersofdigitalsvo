@@ -21,14 +21,14 @@ public class BillingProcessingServiceImpl implements BillingProcessingService {
 
     @Override
     public void accomplish(String billId) throws IOException {
-        String userName = "org2@leadersofdigitalsvo.ru";
+        String userName = "org1user1@org1.leadersofdigitalsvo.ru";
         String networkName = "network";
         new AccomplishBillUseCase().run(networkName, userName, billId);
     }
 
     @Override
     public void fail(String billId) throws IOException {
-        String userName = "org2@leadersofdigitalsvo.ru";
+        String userName = "org1user1@org1.leadersofdigitalsvo.ru";
         String networkName = "network";
         new FailBillUseCase().run(networkName, userName, billId);
     }
@@ -65,5 +65,5 @@ public class BillingProcessingServiceImpl implements BillingProcessingService {
     @Autowired
     BankProcessingEndpoint bankProcessingEndpoint;
 
-    private String userName = "org1@leadersofdigitalsvo.ru";
+    private String userName = "org1admin@org1.leadersofdigitalsvo.ru";
 }

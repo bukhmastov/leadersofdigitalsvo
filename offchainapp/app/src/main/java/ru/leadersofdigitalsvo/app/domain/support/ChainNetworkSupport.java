@@ -14,7 +14,7 @@ import java.util.concurrent.TimeoutException;
 public class ChainNetworkSupport {
 
     public static <T> T useNetwork(String networkName, String userName, Runner<T> runner) throws IOException {
-        UserChainIdentity userChainIdentity = new UserIdentitySupport().makeUserIdentity(userName);
+        UserChainIdentity userChainIdentity = UserIdentitySupport.makeUserIdentity(userName);
         Path networkConfig = new NetworkSupport().makeNetworkConfig();
         try (Gateway gateway = Gateway.createBuilder()
                 .identity(userChainIdentity.getWallet(), userChainIdentity.getUserName())

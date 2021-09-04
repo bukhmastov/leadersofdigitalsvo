@@ -16,7 +16,7 @@ public class AccountRegistrationServiceImpl implements AccountRegistrationServic
 
     @Override
     public String register(Account account, Agreement agreement) throws IOException {
-        String userName = "org2@leadersofdigitalsvo.ru";
+        String userName = "org1user1@org1.leadersofdigitalsvo.ru";
         String networkName = "network";
         account.setAccountId(makeEntityId());
         agreement.setAccountId(account.getAccountId());
@@ -27,7 +27,7 @@ public class AccountRegistrationServiceImpl implements AccountRegistrationServic
 
     @Override
     public AccountInfo info(String accountId) throws IOException {
-        String userName = "org2@leadersofdigitalsvo.ru";
+        String userName = "org1user1@org1.leadersofdigitalsvo.ru";
         String networkName = "network";
         AccountInfo accountInfo = new AccountInfoUseCase().run(networkName, userName, accountId);
         return accountInfo;
