@@ -1,4 +1,4 @@
-rootProject.name = 'account-contract'
+rootProject.name = 'billing-contract'
 
 include ":common:model"
 project(":common:model").projectDir = file("../../common/model")
