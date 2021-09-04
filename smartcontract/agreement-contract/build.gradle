@@ -19,8 +19,14 @@ repositories {
 dependencies {
     implementation project(":common:model")
     implementation project(":common:chain")
-    implementation group: 'org.hyperledger.fabric-chaincode-java', name: 'fabric-chaincode-shim', version: '2.+'
+    implementation 'org.hyperledger.fabric-chaincode-java:fabric-chaincode-shim:2.+'
     implementation group: 'org.json', name: 'json', version: '20180813'
+}
+
+mainClassName = 'org.hyperledger.fabric.contract.ContractRouter'
+
+application {
+    mainClass = 'org.hyperledger.fabric.contract.ContractRouter'
 }
 
 shadowJar {
