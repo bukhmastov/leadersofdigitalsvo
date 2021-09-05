@@ -10,7 +10,7 @@ import java.nio.file.Paths;
 
 public class UserIdentitySupport {
 
-    private static final Path walletPath = Paths.get(".", "wallet");
+    private static final Path walletPath = Paths.get("..", "..", "wallet");
 
     public static Wallet makeWallet() throws IOException {
         return Wallets.newFileSystemWallet(walletPath);

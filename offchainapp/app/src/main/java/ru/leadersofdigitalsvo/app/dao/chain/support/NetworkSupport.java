@@ -5,9 +5,7 @@ import java.nio.file.Paths;
 
 public class NetworkSupport {
 
-    private static final Path networkConfigPath = Paths.get(".", "gateway", "connection.yaml");
-
-    public Path makeNetworkConfig() {
-        return networkConfigPath;
+    public static Path makeNetworkConfig(String org) {
+        return Paths.get("..", "..", "network", "organizations", "peerOrganizations", org + ".leadersofdigitalsvo.ru", "connection-" + org + ".yaml");
     }
 }
