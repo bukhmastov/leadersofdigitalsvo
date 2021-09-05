@@ -67,17 +67,17 @@ function createOrg1() {
 
   infoln "Generating the user msp"
   set -x
-  fabric-ca-client enroll -u https://user1:user1pw@localhost:7054 --caname ca-org1 -M "${PWD}/organizations/peerOrganizations/org1.leadersofdigitalsvo.ru/users/User1@org1.leadersofdigitalsvo.ru/msp" --tls.certfiles "${PWD}/organizations/fabric-ca/org1/tls-cert.pem"
+  fabric-ca-client enroll -u https://user1:user1pw@localhost:7054 --caname ca-org1 -M "${PWD}/organizations/peerOrganizations/org1.leadersofdigitalsvo.ru/users/org1user1@org1.leadersofdigitalsvo.ru/msp" --tls.certfiles "${PWD}/organizations/fabric-ca/org1/tls-cert.pem"
   { set +x; } 2>/dev/null
 
-  cp "${PWD}/organizations/peerOrganizations/org1.leadersofdigitalsvo.ru/msp/config.yaml" "${PWD}/organizations/peerOrganizations/org1.leadersofdigitalsvo.ru/users/User1@org1.leadersofdigitalsvo.ru/msp/config.yaml"
+  cp "${PWD}/organizations/peerOrganizations/org1.leadersofdigitalsvo.ru/msp/config.yaml" "${PWD}/organizations/peerOrganizations/org1.leadersofdigitalsvo.ru/users/org1user1@org1.leadersofdigitalsvo.ru/msp/config.yaml"
 
   infoln "Generating the org admin msp"
   set -x
-  fabric-ca-client enroll -u https://org1admin:org1adminpw@localhost:7054 --caname ca-org1 -M "${PWD}/organizations/peerOrganizations/org1.leadersofdigitalsvo.ru/users/Admin@org1.leadersofdigitalsvo.ru/msp" --tls.certfiles "${PWD}/organizations/fabric-ca/org1/tls-cert.pem"
+  fabric-ca-client enroll -u https://org1admin:org1adminpw@localhost:7054 --caname ca-org1 -M "${PWD}/organizations/peerOrganizations/org1.leadersofdigitalsvo.ru/users/org1admin@org1.leadersofdigitalsvo.ru/msp" --tls.certfiles "${PWD}/organizations/fabric-ca/org1/tls-cert.pem"
   { set +x; } 2>/dev/null
 
-  cp "${PWD}/organizations/peerOrganizations/org1.leadersofdigitalsvo.ru/msp/config.yaml" "${PWD}/organizations/peerOrganizations/org1.leadersofdigitalsvo.ru/users/Admin@org1.leadersofdigitalsvo.ru/msp/config.yaml"
+  cp "${PWD}/organizations/peerOrganizations/org1.leadersofdigitalsvo.ru/msp/config.yaml" "${PWD}/organizations/peerOrganizations/org1.leadersofdigitalsvo.ru/users/org1admin@org1.leadersofdigitalsvo.ru/msp/config.yaml"
 }
 
 function createOrg2() {
@@ -147,17 +147,17 @@ function createOrg2() {
 
   infoln "Generating the user msp"
   set -x
-  fabric-ca-client enroll -u https://user1:user1pw@localhost:8054 --caname ca-org2 -M "${PWD}/organizations/peerOrganizations/org2.leadersofdigitalsvo.ru/users/User1@org2.leadersofdigitalsvo.ru/msp" --tls.certfiles "${PWD}/organizations/fabric-ca/org2/tls-cert.pem"
+  fabric-ca-client enroll -u https://user1:user1pw@localhost:8054 --caname ca-org2 -M "${PWD}/organizations/peerOrganizations/org2.leadersofdigitalsvo.ru/users/org2user1@org2.leadersofdigitalsvo.ru/msp" --tls.certfiles "${PWD}/organizations/fabric-ca/org2/tls-cert.pem"
   { set +x; } 2>/dev/null
 
-  cp "${PWD}/organizations/peerOrganizations/org2.leadersofdigitalsvo.ru/msp/config.yaml" "${PWD}/organizations/peerOrganizations/org2.leadersofdigitalsvo.ru/users/User1@org2.leadersofdigitalsvo.ru/msp/config.yaml"
+  cp "${PWD}/organizations/peerOrganizations/org2.leadersofdigitalsvo.ru/msp/config.yaml" "${PWD}/organizations/peerOrganizations/org2.leadersofdigitalsvo.ru/users/org2user1@org2.leadersofdigitalsvo.ru/msp/config.yaml"
 
   infoln "Generating the org admin msp"
   set -x
-  fabric-ca-client enroll -u https://org2admin:org2adminpw@localhost:8054 --caname ca-org2 -M "${PWD}/organizations/peerOrganizations/org2.leadersofdigitalsvo.ru/users/Admin@org2.leadersofdigitalsvo.ru/msp" --tls.certfiles "${PWD}/organizations/fabric-ca/org2/tls-cert.pem"
+  fabric-ca-client enroll -u https://org2admin:org2adminpw@localhost:8054 --caname ca-org2 -M "${PWD}/organizations/peerOrganizations/org2.leadersofdigitalsvo.ru/users/org2admin@org2.leadersofdigitalsvo.ru/msp" --tls.certfiles "${PWD}/organizations/fabric-ca/org2/tls-cert.pem"
   { set +x; } 2>/dev/null
 
-  cp "${PWD}/organizations/peerOrganizations/org2.leadersofdigitalsvo.ru/msp/config.yaml" "${PWD}/organizations/peerOrganizations/org2.leadersofdigitalsvo.ru/users/Admin@org2.leadersofdigitalsvo.ru/msp/config.yaml"
+  cp "${PWD}/organizations/peerOrganizations/org2.leadersofdigitalsvo.ru/msp/config.yaml" "${PWD}/organizations/peerOrganizations/org2.leadersofdigitalsvo.ru/users/org2admin@org2.leadersofdigitalsvo.ru/msp/config.yaml"
 }
 
 function createOrderer() {

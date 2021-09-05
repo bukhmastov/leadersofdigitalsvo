@@ -23,6 +23,7 @@ public class WalletSetup {
             Wallet wallet = UserIdentitySupport.makeWallet();
             wallet.put("org1admin@org1.leadersofdigitalsvo.ru", makeIdentity("Org1MSP", "org1.leadersofdigitalsvo.ru", "org1admin"));
             wallet.put("org1user1@org1.leadersofdigitalsvo.ru", makeIdentity("Org1MSP", "org1.leadersofdigitalsvo.ru", "org1user1"));
+            wallet.put("org2admin@org2.leadersofdigitalsvo.ru", makeIdentity("Org2MSP", "org2.leadersofdigitalsvo.ru", "org2admin"));
             wallet.put("org2user1@org2.leadersofdigitalsvo.ru", makeIdentity("Org2MSP", "org2.leadersofdigitalsvo.ru", "org2user1"));
         } catch (CertificateException | InvalidKeyException e) {
             throw new IOException(e);
