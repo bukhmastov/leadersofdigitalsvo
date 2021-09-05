@@ -34,6 +34,9 @@ public class WalletSetup {
         Path credentialPath = Paths.get("..", "..", "network", "organizations", "peerOrganizations", organisation, "users", label, "msp");
         Path certificatePath = credentialPath.resolve(Paths.get("signcerts", label + ".pem"));
         Path privateKeyPath = credentialPath.resolve(Paths.get("keystore", "priv_sk"));
+        System.out.println("credentialPath: " + credentialPath);
+        System.out.println("certificatePath: " + certificatePath);
+        System.out.println("privateKeyPath: " + privateKeyPath);
         X509Certificate certificate = readX509Certificate(certificatePath);
         PrivateKey privateKey = getPrivateKey(privateKeyPath);
         return Identities.newX509Identity(mspid, certificate, privateKey);
