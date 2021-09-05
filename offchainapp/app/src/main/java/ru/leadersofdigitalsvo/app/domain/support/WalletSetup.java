@@ -31,7 +31,7 @@ public class WalletSetup {
 
     private static Identity makeIdentity(String mspid, String organisation, String user) throws CertificateException, IOException, InvalidKeyException {
         String label = user + "@" + organisation;
-        Path credentialPath = Paths.get("..", "..", "..", "..", "network", "organizations", "peerOrganizations", organisation, "users", label, "msp");
+        Path credentialPath = Paths.get("..", "..", "network", "organizations", "peerOrganizations", organisation, "users", label, "msp");
         Path certificatePath = credentialPath.resolve(Paths.get("signcerts", label + ".pem"));
         Path privateKeyPath = credentialPath.resolve(Paths.get("keystore", "priv_sk"));
         X509Certificate certificate = readX509Certificate(certificatePath);
