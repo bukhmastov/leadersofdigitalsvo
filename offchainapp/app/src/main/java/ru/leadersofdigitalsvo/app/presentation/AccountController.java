@@ -10,16 +10,15 @@ import ru.leadersofdigitalsvo.app.model.entity.AccountInfo;
 import java.io.IOException;
 
 @Controller
-@RequestMapping("/account")
 public class AccountController {
 
-    @PostMapping(name = "/register", produces = "application/json")
+    @PostMapping(name = "/account/register", produces = "application/json")
     public @ResponseBody String register(@RequestBody AccountRegistrationDto dto) throws IOException {
         String accountId = accountRegistrationService.register(dto.account, dto.agreement);
         return accountId;
     }
 
-    @GetMapping(name = "/info/{id}", produces = "application/json")
+    @GetMapping(name = "/account/info/{id}", produces = "application/json")
     public @ResponseBody AccountInfo info(@PathVariable("id") String accountId) throws IOException {
         AccountInfo accountInfo = accountRegistrationService.info(accountId);
         return accountInfo;
