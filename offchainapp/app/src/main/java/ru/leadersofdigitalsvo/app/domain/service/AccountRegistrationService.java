@@ -10,5 +10,7 @@ public interface AccountRegistrationService {
 
     String register(Account account, Agreement agreement) throws IOException;
 
+    String login(String accountId, String password) throws IOException;
+
     AccountInfo info(String accountId) throws IOException;
 }

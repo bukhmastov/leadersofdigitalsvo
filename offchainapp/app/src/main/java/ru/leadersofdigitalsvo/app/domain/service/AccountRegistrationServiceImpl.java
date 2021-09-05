@@ -26,6 +26,11 @@ public class AccountRegistrationServiceImpl implements AccountRegistrationServic
     }
 
     @Override
+    public String login(String accountId, String password) throws IOException {
+        return accountId;
+    }
+
+    @Override
     public AccountInfo info(String accountId) throws IOException {
         String userName = "org1user1@org1.leadersofdigitalsvo.ru";
         String networkName = "network";
