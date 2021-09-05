@@ -33,8 +33,10 @@ public class WalletSetup {
     private static Identity makeIdentity(String mspid, String organisation, String user) throws CertificateException, IOException, InvalidKeyException {
         String label = user + "@" + organisation;
         Path credentialPath = Paths.get("..", "..", "network", "organizations", "peerOrganizations", organisation, "users", label, "msp");
-        Path certificatePath = credentialPath.resolve(Paths.get("signcerts", label + ".pem"));
-        Path privateKeyPath = credentialPath.resolve(Paths.get("keystore", "priv_sk"));
+        Path certificatePath = credentialPath.resolve(Paths.get("signcerts", "cert.pem"));
+        Path privateKeyPath = Files.find(credentialPath.resolve(Paths.get("keystore")), 1, (path, basicFileAttributes) -> path.toFile().getName().matches(".*_sk"))
+                .findFirst()
+                .orElse(null);
         System.out.println("credentialPath: " + credentialPath);
         System.out.println("certificatePath: " + certificatePath);
         System.out.println("privateKeyPath: " + privateKeyPath);
