@@ -68,15 +68,15 @@ function createOrg3 {
 
   infoln "Generating the user msp"
   set -x
-	fabric-ca-client enroll -u https://user1:user1pw@localhost:11054 --caname ca-org3 -M "${PWD}/../organizations/peerOrganizations/org3.leadersofdigitalsvo.ru/users/User1@org3.leadersofdigitalsvo.ru/msp" --tls.certfiles "${PWD}/fabric-ca/org3/tls-cert.pem"
+	fabric-ca-client enroll -u https://user1:user1pw@localhost:11054 --caname ca-org3 -M "${PWD}/../organizations/peerOrganizations/org3.leadersofdigitalsvo.ru/users/org3user1@org3.leadersofdigitalsvo.ru/msp" --tls.certfiles "${PWD}/fabric-ca/org3/tls-cert.pem"
   { set +x; } 2>/dev/null
 
-  cp "${PWD}/../organizations/peerOrganizations/org3.leadersofdigitalsvo.ru/msp/config.yaml" "${PWD}/../organizations/peerOrganizations/org3.leadersofdigitalsvo.ru/users/User1@org3.leadersofdigitalsvo.ru/msp/config.yaml"
+  cp "${PWD}/../organizations/peerOrganizations/org3.leadersofdigitalsvo.ru/msp/config.yaml" "${PWD}/../organizations/peerOrganizations/org3.leadersofdigitalsvo.ru/users/org3user1@org3.leadersofdigitalsvo.ru/msp/config.yaml"
 
   infoln "Generating the org admin msp"
   set -x
-	fabric-ca-client enroll -u https://org3admin:org3adminpw@localhost:11054 --caname ca-org3 -M "${PWD}/../organizations/peerOrganizations/org3.leadersofdigitalsvo.ru/users/Admin@org3.leadersofdigitalsvo.ru/msp" --tls.certfiles "${PWD}/fabric-ca/org3/tls-cert.pem"
+	fabric-ca-client enroll -u https://org3admin:org3adminpw@localhost:11054 --caname ca-org3 -M "${PWD}/../organizations/peerOrganizations/org3.leadersofdigitalsvo.ru/users/org3admin@org3.leadersofdigitalsvo.ru/msp" --tls.certfiles "${PWD}/fabric-ca/org3/tls-cert.pem"
   { set +x; } 2>/dev/null
 
-  cp "${PWD}/../organizations/peerOrganizations/org3.leadersofdigitalsvo.ru/msp/config.yaml" "${PWD}/../organizations/peerOrganizations/org3.leadersofdigitalsvo.ru/users/Admin@org3.leadersofdigitalsvo.ru/msp/config.yaml"
+  cp "${PWD}/../organizations/peerOrganizations/org3.leadersofdigitalsvo.ru/msp/config.yaml" "${PWD}/../organizations/peerOrganizations/org3.leadersofdigitalsvo.ru/users/org3admin@org3.leadersofdigitalsvo.ru/msp/config.yaml"
 }

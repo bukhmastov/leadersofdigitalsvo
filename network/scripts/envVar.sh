@@ -25,18 +25,17 @@ setGlobals() {
   if [ $USING_ORG -eq 1 ]; then
     export CORE_PEER_LOCALMSPID="Org1MSP"
     export CORE_PEER_TLS_ROOTCERT_FILE=$PEER0_ORG1_CA
-    export CORE_PEER_MSPCONFIGPATH=${PWD}/organizations/peerOrganizations/org1.leadersofdigitalsvo.ru/users/Admin@org1.leadersofdigitalsvo.ru/msp
+    export CORE_PEER_MSPCONFIGPATH=${PWD}/organizations/peerOrganizations/org1.leadersofdigitalsvo.ru/users/org1admin@org1.leadersofdigitalsvo.ru/msp
     export CORE_PEER_ADDRESS=localhost:7051
   elif [ $USING_ORG -eq 2 ]; then
     export CORE_PEER_LOCALMSPID="Org2MSP"
     export CORE_PEER_TLS_ROOTCERT_FILE=$PEER0_ORG2_CA
-    export CORE_PEER_MSPCONFIGPATH=${PWD}/organizations/peerOrganizations/org2.leadersofdigitalsvo.ru/users/Admin@org2.leadersofdigitalsvo.ru/msp
+    export CORE_PEER_MSPCONFIGPATH=${PWD}/organizations/peerOrganizations/org2.leadersofdigitalsvo.ru/users/org2admin@org2.leadersofdigitalsvo.ru/msp
     export CORE_PEER_ADDRESS=localhost:9051
-
   elif [ $USING_ORG -eq 3 ]; then
     export CORE_PEER_LOCALMSPID="Org3MSP"
     export CORE_PEER_TLS_ROOTCERT_FILE=$PEER0_ORG3_CA
-    export CORE_PEER_MSPCONFIGPATH=${PWD}/organizations/peerOrganizations/org3.leadersofdigitalsvo.ru/users/Admin@org3.leadersofdigitalsvo.ru/msp
+    export CORE_PEER_MSPCONFIGPATH=${PWD}/organizations/peerOrganizations/org3.leadersofdigitalsvo.ru/users/org3admin@org3.leadersofdigitalsvo.ru/msp
     export CORE_PEER_ADDRESS=localhost:11051
   else
     errorln "ORG Unknown"

@@ -219,8 +219,8 @@ function createOrderer() {
 
   infoln "Generating the admin msp"
   set -x
-  fabric-ca-client enroll -u https://ordererAdmin:ordererAdminpw@localhost:9054 --caname ca-orderer -M "${PWD}/organizations/ordererOrganizations/leadersofdigitalsvo.ru/users/Admin@leadersofdigitalsvo.ru/msp" --tls.certfiles "${PWD}/organizations/fabric-ca/ordererOrg/tls-cert.pem"
+  fabric-ca-client enroll -u https://ordererAdmin:ordererAdminpw@localhost:9054 --caname ca-orderer -M "${PWD}/organizations/ordererOrganizations/leadersofdigitalsvo.ru/users/admin@leadersofdigitalsvo.ru/msp" --tls.certfiles "${PWD}/organizations/fabric-ca/ordererOrg/tls-cert.pem"
   { set +x; } 2>/dev/null
 
-  cp "${PWD}/organizations/ordererOrganizations/leadersofdigitalsvo.ru/msp/config.yaml" "${PWD}/organizations/ordererOrganizations/leadersofdigitalsvo.ru/users/Admin@leadersofdigitalsvo.ru/msp/config.yaml"
+  cp "${PWD}/organizations/ordererOrganizations/leadersofdigitalsvo.ru/msp/config.yaml" "${PWD}/organizations/ordererOrganizations/leadersofdigitalsvo.ru/users/admin@leadersofdigitalsvo.ru/msp/config.yaml"
 }
